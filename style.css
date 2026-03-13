@@ -1,0 +1,109 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 60px;
+}
+
+/* Basic reset and font setup */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Navigation bar */
+nav {
+    position: sticky;
+    top: 0;
+    background: #333;
+    padding: 10px;
+    z-index: 1000;
+}
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+/* Main content area */
+
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Header styling with a bright accent color */
+header {
+    text-align: center;
+    background-color: #ffcc00; 
+    padding: 30px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+/* Container limits width for better reading on desktop */
+main {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Makes sure the infographic scales down on mobile */
+.responsive-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Quiz styling */
+#choices-container button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+#choices-container button:hover {
+    background-color: #ddd;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#next-btn {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
