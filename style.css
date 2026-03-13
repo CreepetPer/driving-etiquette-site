@@ -107,3 +107,8 @@ h2 {
     cursor: pointer;
     margin-top: 15px;
 }
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
