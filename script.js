@@ -212,7 +212,7 @@ function shuffle(array) {
 }
 function prepareQuiz() {
     shuffle(quizData);
-    quizData.splice(20); 
+    quizData.splice(40); 
 }
 let currentQuestionIndex = 0;
 let score = 0;
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 quizImg.src = "";
                 quizImg.classList.add("hidden");
             }
-        }
+        }   
 
         questionText.textContent = currentQuestion.question;
 
