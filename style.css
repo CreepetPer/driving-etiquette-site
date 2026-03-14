@@ -186,3 +186,23 @@ img {
 .expanded .arrow-btn {
     transform: rotate(180px);
 }
+
+
+/* driving etiquette short-form video */
+.video-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 25px;
+    background-color: #ffcc00; /* Yellow to match your preference */
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: transform 0.2s;
+}
+
+.video-btn:hover {
+    transform: scale(1.05);
+    background-color: #e6b800;
+}
