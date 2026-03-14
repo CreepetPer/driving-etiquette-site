@@ -10,13 +10,6 @@
   
     <nav>
         <div class="logo">CebuTraffic</div>
-  
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
             <ul>
             <li><a href="#problem-explanation">The Problem</a></li>
             <li><a href="#target-audience">Target Audience</a></li>
@@ -48,7 +41,11 @@
             <p>The purpose of this webpage is to spread awareness to vehicle owners on the current state of the roads in Cebu City. It aims to encourage people to adopt a defensive driving mindset in order to keep roads safe. It also attempts to test and educate people on the proper road rules, so that more people can practice them in their daily lives.   </p>
         </section>
         <section id="infographic-section">
+            <div id="infographic-wrapper" class="collapsed">
             <img src="images/traffic-infographic.png" alt="Infographic on Road Etiquette and Traffic Rules in Cebu City">
+            <div class="gradient-overlay"></div>
+            </div>
+            <button id="see-more-btn" class="arrow-btn">&#9662;</button>
         </section>
 
         <section id="quiz-section">
@@ -59,12 +56,14 @@
                     </div>
                 <p id="feedback-text"></p>
                 <button id="next-btn" class="hidden">Next Question</button>
+                <button id="retry-btn" class="hidden">Try Again!</button>
                 </div>
         </section>
 
         <section id="call-to-action">
             <h2>Be Part of the Solution</h2>
             <p>Cebu's traffic isn't just an infrastructure problem; it is a crisis that starts with every person behind the wheel. Roads are not to blame when we violate the road regulations and treat them as mere suggestions. Real change starts with prioritizing the safety of the road instead of counterflowing to save a little time. Commit to being a respectiful and disciplined driver: stay in your lane, respect the signs and traffic lights, and make everyone's driving experience better. The road should not be used as a competition for space, but rather a cooperative effort to keep them open and safe for everyone to use.  </p>
+            <br>
             <p><strong>#DriveSafeCebu #DigitalCebu #RoadEtiquettePh</strong></p>
         </section>
     </main>
