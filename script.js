@@ -92,8 +92,8 @@ const quizData = [
     },
     {
         question: "Which document must you always carry while driving?",
-        choices: ["Original Deed of Sale", "Photocopy of valid OR and CR", "LTO Receipt of registration only", "Voter's ID"],
-        correctAnswer: "Photocopy of valid OR and CR"
+        choices: ["Original Deed of Sale", "Valid OR and CR (original or LTO-accepted copy)", "LTO Receipt of registration only", "Voter's ID"],
+        correctAnswer: "Valid OR and CR (original or LTO-accepted copy)"
     },
     {
         question: "When is it acceptable to use your hazard lights while moving?",
@@ -199,6 +199,56 @@ const quizData = [
         question: "What is the primary rule for the 'Zipper Merge' (used in traffic bottlenecks)?",
         choices: ["First come, first served", "One car from the left, then one car from the right", "The fastest car goes first", "Bus/Trucks always have priority"],
         correctAnswer: "One car from the left, then one car from the right"
+    },
+    {
+        question: "When approaching a pedestrian lane (zebra crossing) with no traffic light or enforcer, what should a driver do if pedestrians are waiting to cross?",
+        choices: ["Continue driving unless the pedestrian is already in the road", "Slow down but keep moving unless they step onto the lane", "Stop and give way to pedestrians waiting to cross", "Honk to signal the pedestrian before passing"],
+        correctAnswer: "Stop and give way to pedestrians waiting to cross"
+    },
+    {
+        question: "You’re driving in heavy traffic and another car signals to merge into your lane. What is the best driving etiquette?",
+        choices: ["Block them so they stay in their lane", "Speed up so they cannot enter", "Slow down slightly and let them merge safely", "Honk repeatedly"],
+        correctAnswer: "Slow down slightly and let them merge safely"
+    },
+    {
+        question: "When a jeepney stops suddenly to drop off passengers, what should drivers behind it do?",
+        choices: ["Overtake immediately without checking", "Stay patient and check for passengers crossing", "Honk continuously", "Drive very close behind it"],
+        correctAnswer: "Stay patient and check for passengers crossing"
+    },
+    {
+        question: "What is the most courteous way to use your horn in city traffic?",
+        choices: ["Use it whenever traffic is slow", "Use it only as a warning for safety", "Use it to express frustration", "Use it every time the light turns green"],
+        correctAnswer: "Use it only as a warning for safety"
+    },
+    {
+        question: "When driving near motorcycles weaving through traffic, what should you do?",
+        choices: ["Ignore them completely", "Maintain a safe distance and stay predictable", "Block them from passing", "Race them to the next lane"],
+        correctAnswer: "Maintain a safe distance and stay predictable"
+    },
+    {
+        question: "When you see a vehicle signaling to turn but waiting for pedestrians, what should you do behind them?",
+        choices: ["Honk to pressure them", "Overtake immediately", "Wait patiently", "Flash your headlights repeatedly"],
+        correctAnswer: "Wait patiently"
+    },
+    {
+        question: "When driving in rain on Cebu roads, what is a courteous thing drivers should remember?",
+        choices: ["Drive the same speed as normal", "Turn off lights to save battery", "Slow down and increase following distance", "Use hazard lights constantly"],
+        correctAnswer: "Slow down and increase following distance"
+    },
+    {
+        question: "When driving behind a large truck or bus, what is the safest habit?",
+        choices: ["Tailgate closely", "Maintain enough distance to see around it", "Overtake immediately without checking", "Honk until it moves faster"],
+        correctAnswer: "Maintain enough distance to see around it"
+    },
+    {
+        question: "When approaching a blind curve on mountain roads like those in Busay, what is the best driving behavior?",
+        choices: ["Accelerate through the curve", "Stay in your lane and slow down (you may honk gently to alert oncoming drivers)", "Overtake quickly", "Honk aggressively"],
+        correctAnswer: "Stay in your lane and slow down (you may honk gently to alert oncoming drivers)"
+    },
+    {
+        question: "When making a U-turn at a designated U-turn slot on a busy Cebu road, who has the right-of-way?",
+        choices: ["The vehicle making the U-turn", "Vehicles already traveling straight on the main road", "The larger vehicle", "Motorcycles only"],
+        correctAnswer: "Vehicles already traveling straight on the main road"
     }
 
 ];
