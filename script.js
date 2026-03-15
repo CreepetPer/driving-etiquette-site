@@ -1,4 +1,3 @@
-// Tell your groupmates to add their questions to this array
 const quizData = [
     {
         question: "Who has the right-of-way at an intersection without traffic lights?",
@@ -72,7 +71,7 @@ const quizData = [
         correctAnswer: "The vehicle that arrived first"
     },
     {
-        question: "What is the mandatory minimum distance you must keep from a cyclist in the Cebu bikelanes?",
+        question: "What is the mandatory minimum distance you must keep from a cyclist in the Cebu bike lanes?",
         choices: ["0.5 meters", "1 meter", "1.5 meters", "2 meters"],
         correctAnswer: "1.5 meters"
     },
@@ -210,10 +209,19 @@ function shuffle(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
+
 function prepareQuiz() {
-    shuffle(quizData);
-    quizData.splice(40); 
+    // 1. Create a fresh copy of the master array
+    activeQuiz = [...quizData];
+    
+    // 2. Shuffle the temporary copy
+    shuffle(activeQuiz);
+    
+    // 3. Keep only the first 20 items (slice does not destroy the array)
+    activeQuiz = activeQuiz.slice(0, 20); 
 }
+
+let activeQuiz = [];
 let currentQuestionIndex = 0;
 let score = 0;
 
@@ -230,14 +238,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 2. Quiz Functions
     function loadQuestion() {
-        if (!quizData[currentQuestionIndex]) return;
+        if (!activeQuiz[currentQuestionIndex]) return;
 
         feedbackText.textContent = "";
         nextBtn.classList.add("hidden");
         retryBtn.classList.add("hidden");
         choicesContainer.innerHTML = "";
 
-        const currentQuestion = quizData[currentQuestionIndex];
+        const currentQuestion = activeQuiz[currentQuestionIndex];
 
         // Handle Image display
         if (quizImg) {
@@ -251,6 +259,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }   
 
         questionText.textContent = currentQuestion.question;
+
+        shuffle(currentQuestion.choices);
 
         currentQuestion.choices.forEach(choice => {
             const button = document.createElement("button");
@@ -274,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buttons.forEach(btn => btn.disabled = true);
 
         nextBtn.classList.remove("hidden");
-        if (currentQuestionIndex === quizData.length - 1) {
+        if (currentQuestionIndex === activeQuiz.length - 1) {
             nextBtn.textContent = "Finish Quiz";
         }
     }
@@ -283,14 +293,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (nextBtn) {
         nextBtn.addEventListener("click", () => {
             currentQuestionIndex++;
-            if (currentQuestionIndex < quizData.length) {
+            if (currentQuestionIndex < activeQuiz.length) {
                 loadQuestion();
             } else {
                 // Show final score
-                if (score >= quizData.length) {
-                    questionText.textContent = `Perfect Score! (${score}/${quizData.length}) Drive Safe!`;
+                if (score >= activeQuiz.length) {
+                    questionText.textContent = `Perfect Score! (${score}/${activeQuiz.length}) Drive Safe!`;
                 } else {
-                    questionText.textContent = `Your final score is: ${score}/${quizData.length}. Wanna try again?`;
+                    questionText.textContent = `Your final score is: ${score}/${activeQuiz.length}. Wanna try again?`;
                 }
                 choicesContainer.innerHTML = "";
                 feedbackText.textContent = "";
