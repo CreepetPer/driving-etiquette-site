@@ -9,15 +9,20 @@
 <body>
   
     <nav>
-        <div class="logo">CebuTraffic</div>
-            <ul>
-                <li><a href="#problem-explanation">The Problem</a></li>
-                <li><a href="#target-audience">Target Audience</a></li>
-                <li><a href="#purpose">Purpose</a></li>
-                <li><a href="#infographic-section">Infographic</a></li>
-                <li><a href="#quiz-section">Etiquette Quiz</a></li>
-                <li><a href="#video-link-section">Advocacy Video</a></li>
-            </ul>
+        <div class="logo"><a href="#">DRIVE SAFE CEBU</a></div>
+        
+        <ul>
+            <li><a href="#problem-explanation">The Problem</a></li>
+            <li><a href="#target-audience">Target Audience</a></li>
+            <li><a href="#purpose">Purpose</a></li>
+            <li><a href="#infographic-section">Infographic</a></li>
+            <li><a href="#quiz-section">Etiquette Quiz</a></li>
+            <li><a href="#video-link-section">Advocacy Video</a></li>
+        </ul>
+        
+        <div id="speed-indicator">
+            <span id="speed-number">0</span>
+            <span style="font-size: 9px;">km/h</span>
         </div>
     </nav>
 
@@ -27,11 +32,15 @@
     </header>
 
     <main>
-        <section id="problem-explanation">
-            <h2>Why is Cebu's Traffic So Bad?</h2>
-            <p><strong>Did you know that the CSCR (SRP) handles 75,000 vehicles daily <a href="https://www.sunstar.com.ph/cebu/new-plan-eyed-as-75k-vehicles-clog-ccsr-daily">(source)</a>?<br></strong>
-                
-                According to <a href="https://qa.philstar.com/the-freeman/cebu-news/2024/09/21/2386871/74000-traffic-violations-recorded-cebu-city-jan-june-2024" target="_blank"> Magsumbol (2024)</a>, there are said to be more than 74,000 traffic violations recorded in Cebu City by the Cebu City Transportation Office (CCTO), which implies that these violations could significantly affect the flow of traffic and overall safety in roads. Violations such as counterflowing, "beating the read light", and illegal U-turns, disrupt the flow of traffic, making it inconvenient for many drivers to get from point A to point B. Aside from violations related to driving, the misuse of road space for parking or random loading/unloading of passengers is a common theme in the roads of Cebu City. In essence, the traffic is not solely caused by the abundance of vehicles in the road, but is also a result of a system in which rules are treated as mere suggestions rather than mandatory. </p>
+        <section id="problem-explanation" class="split-section">
+            <div class="split-content">
+                <h2>WHY IS CEBU'S TRAFFIC SO BAD?</h2>
+                <p>Did you know that the CSCR (SRP) handles <a href="https://www.sunstar.com.ph/cebu/new-plan-eyed-as-75k-vehicles-clog-ccsr-daily" target="_blank" class="highlight-red">75,000 vehicles daily</a>?<br><br>
+                According to <a href="https://qa.philstar.com/the-freeman/cebu-news/2024/09/21/2386871/74000-traffic-violations-recorded-cebu-city-jan-june-2024" target="_blank" class="highlight-red">Magsumbol (2024)</a>, there are said to be more than 74,000 traffic violations recorded in Cebu City by the Cebu City Transportation Office (CCTO), which implies that these violations could significantly affect the flow of traffic and overall safety in roads. Violations such as counterflowing, "beating the red light", and illegal U-turns disrupt the flow of traffic, making it inconvenient for many drivers to get from point A to point B. Aside from violations related to driving, the misuse of road space for parking or random loading/unloading of passengers is a common theme in the roads of Cebu City. In essence, the traffic is not solely caused by the abundance of vehicles in the road, but is also a result of a system in which rules are treated as mere suggestions rather than mandatory.</p>
+            </div>
+            <div class="split-image">
+                <img src="images/srp-traffic.jpg" alt="Traffic congestion on the CSCR in Cebu">
+            </div>
         </section>
         <section id="target-audience">
             <h2>Who is Our Target Audience?</h2>
@@ -72,7 +81,7 @@
         <section id="video-link-section">
             <h2>Watch Our Advocacy Video</h2>
             <p>See defensive driving in action on the streets of Cebu.</p>
-            <a href="YOUR_GOOGLE_DRIVE_LINK_HERE" target="_blank" class="video-btn">
+            <a href="YOUR_GOOGLE_DRIVE_LINK_HERE" target="_blank" rel="noopener noreferrer" class="video-btn">
                 Play Video on Google Drive
             </a>
         </section>

@@ -1,3 +1,11 @@
+:root {
+    --dark-navy: #08081b;
+    --black: #000000ff;
+    --ink-black: rgb(10, 20, 27);
+    --prussian-blue: #1b2a41ff;
+    --charcoal-blue: #324a5fff; 
+}
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 60px;
@@ -15,52 +23,92 @@ html {
 nav {
     position: sticky;
     top: 0;
-    background: #333;
-    padding: 10px;
+    background: var(--dark-navy);
+    padding: 10px 20px;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adds breathing room between the links and the speed indicator */
 }
+
+nav .logo {
+    margin-right: auto; /* Pushes everything else to the far right */
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
 nav ul {
     display: flex;
-    justify-content: center;
     list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
 }
+
 nav ul li a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
     font-weight: bold;
 }
+nav ul li a:hover {
+    color: #C0C0C0;
+    text-decoration: none;
+}
+.logo a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+/* Speed Limit Scroll Indicator (Navbar Version) */
+#speed-indicator {
+    width: 45px;
+    height: 45px;
+    background-color: white;
+    border: 4px solid #cc0000;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: black;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+#speed-number {
+    font-size: 16px;
+    line-height: 1;
+}
 
 /* Main content area */
 
 body {
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: var(--dark-navy);
+    color: #ffffff;
     line-height: 1.6;
-    padding: 20px;
 }
 
 /* Header styling with a bright accent color */
 header {
     text-align: center;
     background-color: #ffcc00; 
+    color: var(--dark-navy);
     padding: 30px 20px;
     border-radius: 8px;
-    margin-bottom: 30px;
 }
 
 /* Container limits width for better reading on desktop */
 main {
-    max-width: 800px;
     margin: 0 auto;
 }
 
 section {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 50px;
+    border-radius: 0px;
     margin-bottom: 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 h2 {
@@ -117,7 +165,7 @@ h2 {
     margin-top: 15px;
 }
 img {
-    max-width: 100%;
+    max-width: 80em;
     height: auto;
     display: block;
 }
@@ -139,7 +187,7 @@ img {
     max-height: 300px; 
 }
 .expanded {
-    max-height: 2000px; 
+    max-height: 5000px;
 }
 
 
@@ -205,4 +253,77 @@ img {
 .video-btn:hover {
     transform: scale(1.05);
     background-color: #e6b800;
+}
+
+/* Traffic Light Button Feedback */
+.correct-btn {
+    background-color: #4CAF50 !important; /* Go Green */
+    color: white;
+    border-color: #388E3C !important;
+}
+
+.wrong-btn {
+    background-color: #F44336 !important; /* Stop Red */
+    color: white;
+    border-color: #D32F2F !important;
+}
+
+/* --- Problem Explanation (Hero Split Layout) --- */
+.split-section {
+    display: flex;
+    background-color: var(--prussian-blue); /* Dark navy/almost black background */
+    color: #ffffff; /* White text */
+    align-items: center; /* Vertically centers the text alongside the image */
+    padding: 50px; 
+    gap: 40px; /* Creates breathing room between text and image */
+    margin-bottom: 30px;
+}
+
+/* Left side (Text) */
+.split-content {
+    flex: 1; /* Tells the box to take up 1 equal fraction of the space */
+}
+
+.split-content h2 {
+    text-align: left;
+    font-size: 38px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.split-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+    color: #ffffff;
+}
+
+.split-content a {
+    color: #ffffff;
+}
+
+.split-content a.highlight-red {
+    color: #ff3333;
+    text-decoration: underline;
+}
+
+/* Right side (Image) */
+.split-image {
+    flex: 1; /* Tells the image box to take up the remaining equal fraction */
+}
+
+.split-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Prevents the image from stretching weirdly */
+}
+
+/* Mobile Responsiveness: Stacks the text and image on smaller screens */
+@media (max-width: 768px) {
+    .split-section {
+        flex-direction: column;
+        padding: 30px 20px;
+    }
 }

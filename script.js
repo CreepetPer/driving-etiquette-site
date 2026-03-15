@@ -321,6 +321,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function checkAnswer(selected, correct) {
+        const buttons = choicesContainer.querySelectorAll("button");
+
         if (selected === correct) {
             feedbackText.textContent = "Correct! Well done.";
             feedbackText.style.color = "green";
@@ -330,8 +332,16 @@ document.addEventListener('DOMContentLoaded', function() {
             feedbackText.style.color = "red";
         }
 
-        const buttons = choicesContainer.querySelectorAll("button");
-        buttons.forEach(btn => btn.disabled = true);
+        // Apply traffic light colors to the choices
+        buttons.forEach(btn => {
+            btn.disabled = true; // Lock all buttons
+            
+            if (btn.textContent === correct) {
+                btn.classList.add("correct-btn"); // Highlight correct answer green
+            } else if (btn.textContent === selected) {
+                btn.classList.add("wrong-btn"); // Highlight their wrong guess red
+            }
+        });
 
         nextBtn.classList.remove("hidden");
         if (currentQuestionIndex === activeQuiz.length - 1) {
@@ -378,6 +388,21 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.toggle('flipped');
         });
     }
+
+    // Scroll Indicator Logic
+    const speedNumber = document.getElementById("speed-number");
+    window.addEventListener("scroll", () => {
+        const scrollTop = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercentage = scrollTop / scrollHeight;
+        
+        // Maps the scroll percentage to a number between 0 and 100 (km/h)
+        const currentSpeed = Math.round(scrollPercentage * 100);
+        
+        if (speedNumber) {
+            speedNumber.textContent = currentSpeed;
+        }
+    });
 
     // 5. Initialize
     prepareQuiz();
