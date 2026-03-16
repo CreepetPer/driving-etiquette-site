@@ -516,7 +516,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }, {
-        threshold: 0.15
+        rootMargin: "-50px 0px",
+        threshold: 0
     });
 
     reveals.forEach(section => observer.observe(section));
