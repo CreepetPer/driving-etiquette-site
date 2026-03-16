@@ -309,6 +309,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const quizImg = document.getElementById("quiz-image");
     const seeMoreBtn = document.getElementById('see-more-btn');
     const wrapper = document.getElementById('infographic-wrapper');
+    const startBtn = document.getElementById("start-btn");
+    const traffic = document.getElementById("traffic-sequence");
+    const startScreen = document.getElementById("start-screen");
+    const quizContainer = document.getElementById("quiz-container");
+
 
     // 2. Quiz Functions
     function loadQuestion() {
@@ -471,7 +476,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     }, 3200);
     }
+        startBtn.addEventListener("click", () => {
 
+        startBtn.style.display = "none";
+        traffic.classList.remove("hidden");
+
+        setTimeout(() => {
+
+            startScreen.style.display = "none";
+            quizContainer.classList.remove("hidden");
+
+            prepareQuiz();
+            loadQuestion();
+
+        }, 3000);
+
+    });
     
     updateSpeedometer();
         // 5. Initialize

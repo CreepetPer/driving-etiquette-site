@@ -337,76 +337,140 @@ img {
     /* ... your other styles ... */
     transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
-#page-loader{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:#111;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-    transition:opacity 1s ease;
+
+#start-screen {
+    position: relative;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--dark-navy), var(--prussian-blue)); /* use your root colors */
 }
 
-/* Traffic light container */
-.traffic-light{
-    width:80px;
-    background:#222;
-    padding:15px;
-    border-radius:15px;
+/* Subtle animated background for tech feel */
+#start-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(0, 255, 247, 0.05) 0%, transparent 70%);
+    animation: slowRotate 30s linear infinite;
+    z-index: 0;
 }
 
-/* Lights */
-.light{
-    width:50px;
-    height:50px;
-    margin:10px auto;
-    border-radius:50%;
-    background:#333;
+@keyframes slowRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-/* Animation */
-.red{
-    animation:redLight 3s forwards;
+/* Modern Techy Start Button */
+#start-btn {
+    padding: 18px 50px;
+    font-size: 22px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #00fff7; /* can also make this a root var if you want */
+    background: var(--ink-black);
+    border: 2px solid #00fff7;
+    border-radius: 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 247, 0.5);
+    position: relative;
+    z-index: 1;
 }
 
-.yellow{
-    animation:yellowLight 3s forwards;
+/* Hover effect */
+#start-btn:hover {
+    color: var(--ink-black);
+    background: #00fff7;
+    box-shadow: 0 0 25px rgba(0, 255, 247, 0.9);
+    transform: scale(1.08);
 }
 
-.green{
-    animation:greenLight 3s forwards;
+/* Pressed effect */
+#start-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 12px rgba(0, 255, 247, 0.5) inset;
 }
+.hidden{
+    display:none;
+}
+
+.traffic-light {
+    position: relative;
+    z-index: 1; /* always above the animated background */
+    width: 80px;
+    background: #222;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 247, 0.5);
+}
+
+.light {
+    width: 50px;
+    height: 50px;
+    margin: 10px auto;
+    border-radius: 50%;
+    background: #333;
+    box-shadow: inset 0 0 8px rgba(255,255,255,0.1);
+}
+
+
+.red{ animation:redLight 3s forwards; }
+.yellow{ animation:yellowLight 3s forwards; }
+.green{ animation:greenLight 3s forwards; }
 
 @keyframes redLight{
-    0%{background:red;}
-    100%{background:red;}
+    0%,33%{background:red;}
+    34%,100%{background:#333;}
 }
 
 @keyframes yellowLight{
-    0%,40%{background:#333;}
-    50%,70%{background:yellow;}
-    100%{background:#333;}
+    0%,33%{background:#333;}
+    34%,66%{background:yellow;}
+    67%,100%{background:#333;}
 }
 
 @keyframes greenLight{
-    0%,70%{background:#333;}
-    80%,100%{background:lime;}
+    0%,66%{background:#333;}
+    67%,100%{background:lime;}
+}
+.quiz-header {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00fff7; /* neon-tech color */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
 }
 
-.start-text{
-    color:white;
-    margin-top:20px;
-    font-size:28px;
-    opacity:0;
-    animation:goText 3s forwards;
+/* subtle underline / accent line */
+.quiz-header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #00fff7;
+    margin: 8px auto 0;
+    border-radius: 2px;
+    box-shadow: 0 0 10px #00fff7;
 }
-
-@keyframes goText{
-    0%,70%{opacity:0;}
-    80%,100%{opacity:1;}
+.see-more-text {
+    font-size: 0.8rem;       /* small text */
+    color: rgba(255, 255, 255, 0.5); /* faint, subtle */
+    text-align: center;
+    margin-top: 5px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.5px;
 }
