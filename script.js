@@ -276,6 +276,36 @@ let activeQuiz = [];
 let currentQuestionIndex = 0;
 let score = 0;
 
+// --- Phase 2: Stopwatch Engine ---
+let stopwatchInterval;
+let totalSeconds = 0;
+
+function startStopwatch() {
+    clearInterval(stopwatchInterval); // Prevents multiple clocks from running at once
+    stopwatchInterval = setInterval(() => {
+        totalSeconds++;
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = totalSeconds % 60;
+        
+        // Formats the numbers to always have two digits (e.g., 01:05)
+        const formattedTime = 
+            (minutes < 10 ? "0" : "") + minutes + ":" + 
+            (seconds < 10 ? "0" : "") + seconds;
+            
+        document.getElementById("time-left").textContent = formattedTime;
+    }, 1000);
+}
+
+function stopStopwatch() {
+    clearInterval(stopwatchInterval);
+}
+
+function resetStopwatch() {
+    stopStopwatch();
+    totalSeconds = 0;
+    document.getElementById("time-left").textContent = "00:00";
+}
+
 function launchConfetti() {
     const duration = 3000;
     const end = Date.now() + duration;
@@ -322,8 +352,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         feedbackText.textContent = "";
         nextBtn.classList.add("hidden");
-        retryBtn.classList.add("hidden");
         choicesContainer.innerHTML = "";
+
+        // --- Phase 2: Update Progress HUD ---
+        const progressText = document.getElementById("progress-text");
+        if (progressText) {
+            progressText.textContent = `Question ${currentQuestionIndex + 1} / ${activeQuiz.length}`;
+        }
 
         const currentQuestion = activeQuiz[currentQuestionIndex];
 
@@ -365,11 +400,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply traffic light colors to the choices
         buttons.forEach(btn => {
             btn.disabled = true; // Lock all buttons
-            
             if (btn.textContent === correct) {
-                btn.classList.add("correct-btn"); // Highlight correct answer green
+                btn.classList.add("correct-btn"); 
             } else if (btn.textContent === selected) {
-                btn.classList.add("wrong-btn"); // Highlight their wrong guess red
+                btn.classList.add("wrong-btn"); 
             }
         });
 
@@ -386,28 +420,87 @@ document.addEventListener('DOMContentLoaded', function() {
             if (currentQuestionIndex < activeQuiz.length) {
                 loadQuestion();
             } else {
-                // Show final score
-                if (score >= activeQuiz.length) {
-                    questionText.textContent = `Perfect Score! (${score}/${activeQuiz.length}) Drive Safe!`;
+                // --- Phase 3: Show Gamified Results ---
+                stopStopwatch(); 
+                
+                // Hide the HUD and Question, show the Results Screen
+                document.getElementById("quiz-hud").classList.add("hidden");
+                document.getElementById("question-area").classList.add("hidden");
+                document.getElementById("results-screen").classList.remove("hidden");
+
+                // Populate final stats
+                document.getElementById("final-score").textContent = `${score} / ${activeQuiz.length}`;
+                document.getElementById("final-time").textContent = document.getElementById("time-left").textContent;
+                
+                const ratingTitle = document.getElementById("rating-title");
+                const advocacyMsg = document.getElementById("advocacy-message");
+
+                // Dynamic Rating Logic & Easter Egg
+                if (score === activeQuiz.length) {
+                    // THE PERFECT SCORE EASTER EGG
+                    ratingTitle.textContent = "Flawless!";
+                    ratingTitle.style.color = "var(--traffic-yellow)"; 
+                    advocacyMsg.textContent = "You own the streets of Cebu! (Respectfully, of course).";
                     launchConfetti();
+                    triggerEasterEgg(); // Fires the car and sounds!
+                } else if (score >= 18) {
+                    ratingTitle.textContent = "Road Etiquette Champion!";
+                    ratingTitle.style.color = "#16a34a"; // Green
+                    advocacyMsg.textContent = "Great job! Responsible driving helps make Cebu roads safer for everyone.";
+                    launchConfetti();
+                } else if (score >= 14) {
+                    ratingTitle.textContent = "Safe Driver!";
+                    ratingTitle.style.color = "var(--traffic-yellow)";
+                    advocacyMsg.textContent = "Good effort! Driving with patience and respect prevents accidents.";
                 } else {
-                    questionText.textContent = `Your final score is: ${score}/${activeQuiz.length}. Wanna try again?`;
+                    ratingTitle.textContent = "Needs Practice!";
+                    ratingTitle.style.color = "var(--traffic-red)";
+                    advocacyMsg.textContent = "Keep learning! Understanding the rules is the first step to moving Cebu forward.";
                 }
-                choicesContainer.innerHTML = "";
-                feedbackText.textContent = "";
-                nextBtn.classList.add("hidden");
-                retryBtn.classList.remove("hidden");
             }
         });
     }
 
-    if (retryBtn) {
-        retryBtn.addEventListener("click", () => {
-            score = 0;
-            currentQuestionIndex = 0;
-            prepareQuiz();
-            nextBtn.textContent = "Next";
-            loadQuestion();
+    // --- Phase 3: Replay Buttons ---
+    const retrySameBtn = document.getElementById("retry-same-btn");
+    const tryNewBtn = document.getElementById("try-new-btn");
+
+    function resetQuizUI() {
+        score = 0;
+        currentQuestionIndex = 0;
+        document.getElementById("results-screen").classList.add("hidden");
+        document.getElementById("quiz-hud").classList.remove("hidden");
+        document.getElementById("question-area").classList.remove("hidden");
+        nextBtn.textContent = "Next Question";
+        resetStopwatch();
+        startStopwatch();
+        loadQuestion();
+    }
+
+    if (retrySameBtn) {
+        retrySameBtn.addEventListener("click", () => {
+            // Re-runs the exact same activeQuiz array
+            resetQuizUI();
+        });
+    }
+
+    if (tryNewBtn) {
+        tryNewBtn.addEventListener("click", () => {
+            // Shuffles a brand new set of 20 from the master list!
+            prepareQuiz(); 
+            resetQuizUI();
+        });
+    }
+
+    // --- Phase 2: HUD Restart Button ---
+    const restartHudBtn = document.getElementById("restart-hud-btn");
+    if (restartHudBtn) {
+        restartHudBtn.addEventListener("click", () => {
+            // Adds a quick safety check so they don't accidentally lose their progress
+            if (confirm("Are you sure you want to restart the quiz?")) {
+                prepareQuiz(); // Shuffles a brand new set of 20 questions!
+                resetQuizUI();
+            }
         });
     }
 
@@ -530,9 +623,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 startScreen.classList.add('hidden');
                 quizContainer.classList.remove('hidden');
                 
-                // Assuming you have a function called loadQuestion() to start the quiz
-                // loadQuestion(); 
-            }, 2600); 
+                resetStopwatch();
+                startStopwatch();
+                loadQuestion(); 
+            }, 2600);
         });
     }
     
@@ -569,3 +663,74 @@ document.addEventListener('DOMContentLoaded', function() {
     prepareQuiz();
     loadQuestion();
 });
+
+// --- Phase 3: The Speedrunner Easter Egg (Instant Win Sound, Delayed Car) ---
+function triggerEasterEgg() {
+    // 1. Play the Win Sound IMMEDIATELY (Syncs perfectly with the confetti)
+    const winSound = new Audio("audio/success.mp3");
+    winSound.play().catch(e => console.log("Audio play prevented."));
+
+    // 2. Delay the Car and the Engine Sound by 800ms
+    setTimeout(() => {
+        const engineSound = new Audio("audio/sports-car.mp3");
+        engineSound.volume = 0.5;
+        engineSound.play().catch(e => console.log("Audio play prevented."));
+
+        // Spawn and Animate the Detailed Sports Car SVG
+        let car = document.getElementById("easter-egg-car");
+        
+        if (!car) {
+            car = document.createElement("div");
+            car.id = "easter-egg-car";
+            
+            // Detailed Sports Car with Internal Animations (Spokes, Smoke, Bounce)
+            car.innerHTML = `
+                <svg viewBox="0 0 240 80" width="240" height="80" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="smoke smoke-1" cx="30" cy="60" r="12" fill="#d1d5db" opacity="0.8" />
+                    <circle class="smoke smoke-2" cx="15" cy="50" r="16" fill="#e5e7eb" opacity="0.6" />
+                    <circle class="smoke smoke-3" cx="45" cy="55" r="10" fill="#9ca3af" opacity="0.5" />
+                    
+                    <ellipse cx="130" cy="72" rx="70" ry="6" fill="#000000" opacity="0.3" />
+
+                    <g class="car-chassis">
+                        <path d="M 60 55 L 60 40 Q 60 30 75 25 L 110 20 L 150 25 L 195 40 Q 205 45 205 55 Z" fill="#ff3333" />
+                        
+                        <path d="M 110 22 L 140 26 L 160 38 L 110 38 Z" fill="#1b2a41" />
+                        <path d="M 105 22 L 105 38 L 75 38 Q 75 30 85 25 Z" fill="#1b2a41" />
+
+                        <path d="M 195 45 L 202 45 L 200 50 L 195 50 Z" fill="#ffcc00" />
+                        <path d="M 60 45 L 65 45 L 65 50 L 60 50 Z" fill="#ffcc00" />
+                        
+                        <path d="M 60 52 L 203 52 L 202 55 L 60 55 Z" fill="#ffffff" />
+
+                        <g class="wheel" style="transform-origin: 90px 60px;">
+                            <circle cx="90" cy="60" r="14" fill="#111111" />
+                            <circle cx="90" cy="60" r="6" fill="#e2e8f0" />
+                            <line x1="90" y1="46" x2="90" y2="74" stroke="#ffffff" stroke-width="2" opacity="0.5" />
+                            <line x1="76" y1="60" x2="104" y2="60" stroke="#ffffff" stroke-width="2" opacity="0.5" />
+                        </g>
+                        
+                        <g class="wheel" style="transform-origin: 165px 60px;">
+                            <circle cx="165" cy="60" r="14" fill="#111111" />
+                            <circle cx="165" cy="60" r="6" fill="#e2e8f0" />
+                            <line x1="165" y1="46" x2="165" y2="74" stroke="#ffffff" stroke-width="2" opacity="0.5" />
+                            <line x1="151" y1="60" x2="179" y2="60" stroke="#ffffff" stroke-width="2" opacity="0.5" />
+                        </g>
+                    </g>
+                </svg>
+            `;
+            document.body.appendChild(car);
+        }
+        
+        // Reset the car's position
+        car.style.transition = "none";
+        car.style.transform = "translateX(0)"; 
+        
+        void car.offsetWidth; // Force a reflow
+
+        // Hit the gas! Drives the car across the screen
+        car.style.transition = "transform 2s cubic-bezier(0.4, 0, 0.2, 1)";
+        car.style.transform = "translateX(calc(100vw + 350px))";
+        
+    }, 1000); 
+}

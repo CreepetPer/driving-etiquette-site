@@ -153,17 +153,66 @@ h2 {
 }
 
 /* Quiz styling */
+/* --- Upgraded Quiz Choices (Mobile Friendly) --- */
 #choices-container button {
     display: block;
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 15px 20px; /* Increased for better mobile tapping */
+    margin: 12px 0; /* Clear spacing between choices */
     font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: background-color 0.2s;
+    background-color: #f8fafc; /* Very light, clean gray */
+    color: var(--prussian-blue);
+    border: 2px solid #e2e8f0;
+    border-radius: 10px; /* Modern rounded corners */
+    transition: all 0.2s ease;
+    text-align: left; /* Reads better for long answers */
+}
+
+#choices-container button:hover {
+    background-color: #e2e8f0;
+    border-color: #cbd5e1;
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* --- The Gamified HUD --- */
+#quiz-hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--road-gray);
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--charcoal-blue);
+}
+
+/* Reusing the orange badge style from the start screen for the timer */
+#timer-display {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+#restart-hud-btn {
+    background: none;
+    border: none;
+    color: var(--charcoal-blue);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+#restart-hud-btn:hover {
+    color: var(--traffic-red);
+    transform: rotate(-45deg); /* Satisfying little twist on hover */
 }
 
 #choices-container button:hover {
@@ -639,6 +688,7 @@ img {
 
 /* --- STEP 8: Gamified Dashboard Card (Overrides old neon styles) --- */
 #start-screen, #quiz-container {
+    width: 100%;
     max-width: 700px;
     margin: 0 auto;
     height: auto;
@@ -694,10 +744,17 @@ img {
     display: none; /* Removes the glowing neon underline */
 }
 
+/* --- Phase 1: Full-Width Layout Fix --- */
+#question-area {
+    width: 100%; /* Forces the wrapper to expand to the edges of the white card */
+}
+
 /* Ensure the choices take full width inside the new card */
 #choices-container {
     width: 100%;
-    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Forces all buttons to stretch to 100% of the question-area */
 }
 
 #question-text {
@@ -808,3 +865,77 @@ body::after {
 .active-red { background-color: var(--traffic-red); }
 .active-yellow { background-color: var(--traffic-yellow); }
 .active-green { background-color: #4CAF50; } /* Standard Go Green */
+
+/* --- Phase 3: Results Screen Buttons --- */
+.primary-btn, .secondary-btn {
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.primary-btn {
+    background-color: var(--prussian-blue);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.primary-btn:hover {
+    background-color: var(--charcoal-blue);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background-color: #e2e8f0;
+    color: var(--prussian-blue);
+}
+.secondary-btn:hover {
+    background-color: #cbd5e1;
+    transform: translateY(-2px);
+}
+
+/* --- Phase 3: Perfect Score Easter Egg (Custom SVG) --- */
+#easter-egg-car {
+    position: fixed;
+    bottom: 25%;
+    left: -300px; /* Pushed a bit further back to hide the new smoke trail */
+    z-index: 9999;
+    pointer-events: none;
+    color: var(--traffic-red); 
+}
+
+/* --- Phase 3: Easter Egg Internal SVG Animations --- */
+
+/* 1. Fast Spinning Wheels */
+.wheel {
+    animation: spin 0.2s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 2. Bouncing Car Body (simulating engine vibration/road bumps) */
+.car-chassis {
+    animation: bounce-chassis 0.3s ease-in-out infinite alternate;
+}
+@keyframes bounce-chassis {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-2px); }
+}
+
+/* 3. Billowing Exhaust Smoke */
+.smoke {
+    animation: puff 0.6s infinite ease-out;
+}
+/* Stagger the smoke puffs so they don't all explode at once */
+.smoke-1 { animation-delay: 0s; transform-origin: 30px 60px; }
+.smoke-2 { animation-delay: 0.2s; transform-origin: 15px 50px; }
+.smoke-3 { animation-delay: 0.4s; transform-origin: 45px 55px; }
+
+@keyframes puff {
+    0% { transform: scale(0.5); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
