@@ -496,20 +496,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3200);
     }
     
-    // Start Screen Logic
+    // Start Quiz Button & Traffic Light Sequence
+    const missionBriefing = document.getElementById('mission-briefing');
+    const trafficSequence = document.getElementById('traffic-sequence');
+
+    const lightRed = document.getElementById('light-red');
+    const lightYellow = document.getElementById('light-yellow');
+    const lightGreen = document.getElementById('light-green');
+
     if (startBtn) {
-        startBtn.addEventListener("click", () => {
-            startBtn.style.display = "none";
-            if (traffic) traffic.classList.remove("hidden");
+        startBtn.addEventListener('click', () => {
+            // 1. Hide the text and button
+            missionBriefing.style.display = 'none';
+            
+            // 2. Show the traffic light pill
+            trafficSequence.classList.remove('hidden');
 
+            // 3. Trigger the sequence with precise timing
+            setTimeout(() => { lightRed.classList.add('active-red'); }, 400); // Red on
+            
             setTimeout(() => {
-                if (startScreen) startScreen.style.display = "none";
-                if (quizContainer) quizContainer.classList.remove("hidden");
-
-                prepareQuiz();
-                loadQuestion();
-
-            }, 3000);
+                lightRed.classList.remove('active-red');
+                lightYellow.classList.add('active-yellow'); 
+            }, 1200); // Yellow on
+            
+            setTimeout(() => {
+                lightYellow.classList.remove('active-yellow');
+                lightGreen.classList.add('active-green'); 
+            }, 2000); // Green on
+            
+            setTimeout(() => {
+                // 4. Hide the entire start screen and show the quiz!
+                startScreen.classList.add('hidden');
+                quizContainer.classList.remove('hidden');
+                
+                // Assuming you have a function called loadQuestion() to start the quiz
+                // loadQuestion(); 
+            }, 2600); 
         });
     }
     

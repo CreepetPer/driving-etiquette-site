@@ -718,3 +718,93 @@ body::after {
     pointer-events: none; /* "Ghost mode" so it doesn't block clicks */
     z-index: 999; /* Keeps it above the page, but below the navbar (nav is 1000) */
 }
+
+/* --- STEP 9: Gamified Start Screen Combine --- */
+
+/* Mission Briefing Layout */
+#mission-briefing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.briefing-icons {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.brief-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--charcoal-blue);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* --- Gamified Icon Badges --- */
+.icon-badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px; /* Creates the app-icon 'squircle' shape */
+    margin-bottom: 12px;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08); /* Adds a tactile 3D bottom lip */
+    transition: transform 0.2s ease;
+    font-size: 0;
+}
+
+/* Make the icons fit nicely inside the badge */
+.icon-badge svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Distinct Game Themes */
+.badge-blue {
+    background-color: #e0f2fe;
+    color: #0284c7; /* The SVG inherits this color automatically via 'currentColor' */
+}
+
+.badge-purple {
+    background-color: #f3e8ff;
+    color: #9333ea;
+}
+
+.badge-orange {
+    background-color: #ffedd5;
+    color: #ea580c;
+}
+
+.badge-green {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+/* Modern, Flat Traffic Light */
+.modern-traffic-light {
+    display: flex;
+    gap: 15px;
+    background-color: var(--road-gray); /* Clean light gray background */
+    padding: 15px 25px;
+    border-radius: 50px; /* Pill shape */
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.modern-light {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #d1d5db; /* Dull, "off" gray color */
+    transition: background-color 0.1s ease; /* Snappy color change, no glow */
+}
+
+/* The active states applied by JavaScript */
+.active-red { background-color: var(--traffic-red); }
+.active-yellow { background-color: var(--traffic-yellow); }
+.active-green { background-color: #4CAF50; } /* Standard Go Green */

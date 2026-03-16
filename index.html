@@ -113,19 +113,64 @@
 
             <!-- Start Screen -->
             <div id="start-screen">
+                
+                <div id="mission-briefing">
+                    <h3 style="margin-bottom: 25px; color: var(--prussian-blue);">Are you road-ready?</h3>
+                    
+                    <div class="briefing-icons">
+                        <div class="brief-item">
+                            <div class="icon-badge badge-blue">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                                </svg>
+                            </div>
+                            <span>5 Scenarios</span>
+                        </div>
+                        
+                        <div class="brief-item">
+                            <div class="icon-badge badge-purple">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="16 3 21 3 21 8"></polyline>
+                                    <line x1="4" y1="20" x2="21" y2="3"></line>
+                                    <polyline points="21 16 21 21 16 21"></polyline>
+                                    <line x1="15" y1="15" x2="21" y2="21"></line>
+                                    <line x1="4" y1="4" x2="9" y2="9"></line>
+                                </svg>
+                            </div>
+                            <span>20 Randomized</span>
+                        </div>
 
-                <!-- Button only, no video yet -->
-                <button id="start-btn">Start Quiz</button>
-
-                <!-- Traffic light container (hidden initially) -->
-                <div id="traffic-sequence" class="hidden">
-                    <div class="traffic-light">
-                        <div class="light red"></div>
-                        <div class="light yellow"></div>
-                        <div class="light green"></div>
+                        <div class="brief-item">
+                            <div class="icon-badge badge-orange">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <span>Quick Test</span>
+                        </div>
+                        <div class="brief-item">
+                            <div class="icon-badge badge-green">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <polyline points="9 12 11 14 15 10"></polyline>
+                                </svg>
+                            </div>
+                            <span>Test Etiquette</span>
+                        </div>
                     </div>
+
+                    <button id="start-btn">Start Quiz</button>
                 </div>
 
+                <div id="traffic-sequence" class="hidden">
+                    <div class="modern-traffic-light">
+                        <div class="modern-light" id="light-red"></div>
+                        <div class="modern-light" id="light-yellow"></div>
+                        <div class="modern-light" id="light-green"></div>
+                    </div>
+                </div>
 
             </div>
 
