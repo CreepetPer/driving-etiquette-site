@@ -411,12 +411,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 4. Infographic Toggle Logic
+// 4. Infographic Toggle Logic (Cinematic Fade)
+    const seeMoreText = document.getElementById('see-more-text'); 
+
     if (seeMoreBtn && wrapper) {
         seeMoreBtn.addEventListener('click', function() {
             wrapper.classList.toggle('collapsed');
-            wrapper.classList.toggle('expanded');
+            const isExpanded = wrapper.classList.toggle('expanded');
+            
             this.classList.toggle('flipped');
+
+            // The Cinematic Text Fade
+            if (seeMoreText) {
+                seeMoreText.style.opacity = 0; // 1. Fade out the current text
+                
+                setTimeout(() => {
+                    // 2. Change the words while it is invisible
+                    if (isExpanded) {
+                        seeMoreText.textContent = "Collapse infographic";
+                    } else {
+                        seeMoreText.textContent = "Click to see more";
+                    }
+                    
+                    // 3. Fade the new words back in
+                    seeMoreText.style.opacity = 1; 
+                }, 300); // 300ms perfectly matches the CSS transition time!
+            }
         });
     }
 
