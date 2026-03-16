@@ -538,3 +538,36 @@ img {
     background-color: var(--dark-navy);
     color: #ffffff;
 }
+
+/* --- STEP 2: Target Audience Cards (Minimalist) --- */
+.audience-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap; 
+}
+
+.audience-card {
+    background: #ffffff;
+    color: var(--black);
+    padding: 25px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    /* Notice the transition rule has been removed here to kill the animation */
+}
+
+.audience-card h3 {
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+/* Controls the size and color of the SVG paths */
+.audience-icon {
+    width: 45px;
+    height: 45px;
+    color: var(--prussian-blue); /* Uses your dark blue theme variable */
+    margin-bottom: 15px;
+}
