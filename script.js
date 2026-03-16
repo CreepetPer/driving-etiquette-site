@@ -25,7 +25,7 @@ const quizData = [
         question: "What do broken lines on the road mean?",
         choices: ["Lane changes and overtaking is allowed", "Overtaking is highly prohibited", "Lane switching is not allowed", "VIP and authority lane only"],
         correctAnswer: "Lane changes and overtaking is allowed"
-	},
+    },
     {
         question: "What do you do when the traffic light turns yellow?",
         choices: ["Speed up", "Stop", "Slow down", "Change lanes"],
@@ -252,7 +252,6 @@ const quizData = [
         choices: ["The vehicle making the U-turn", "Vehicles already traveling straight on the main road", "The larger vehicle", "Motorcycles only"],
         correctAnswer: "Vehicles already traveling straight on the main road"
     }
-
 ];
 
 function shuffle(array) {
@@ -277,6 +276,31 @@ let activeQuiz = [];
 let currentQuestionIndex = 0;
 let score = 0;
 
+function launchConfetti() {
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // 1. Select all UI elements
     const questionText = document.getElementById("question-text");
@@ -287,6 +311,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const quizImg = document.getElementById("quiz-image");
     const seeMoreBtn = document.getElementById('see-more-btn');
     const wrapper = document.getElementById('infographic-wrapper');
+    const startBtn = document.getElementById("start-btn");
+    const traffic = document.getElementById("traffic-sequence");
+    const startScreen = document.getElementById("start-screen");
+    const quizContainer = document.getElementById("quiz-container");
 
     // 2. Quiz Functions
     function loadQuestion() {
@@ -361,6 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Show final score
                 if (score >= activeQuiz.length) {
                     questionText.textContent = `Perfect Score! (${score}/${activeQuiz.length}) Drive Safe!`;
+                    launchConfetti();
                 } else {
                     questionText.textContent = `Your final score is: ${score}/${activeQuiz.length}. Wanna try again?`;
                 }
@@ -391,56 +420,108 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Scroll Indicator Logic
+    // 5. Dynamic Speedometer Logic (From INCOMING)
+    let lastScrollTop = 0;
+    let lastTime = Date.now();
+    let targetSpeed = 0;
+    let displayedSpeed = 0;
     const speedNumber = document.getElementById("speed-number");
+    const speedIndicator = document.getElementById("speed-indicator");
+
     window.addEventListener("scroll", () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercentage = scrollTop / scrollHeight;
-        
-        // Maps the scroll percentage to a number between 0 and 100 (km/h)
-        const currentSpeed = Math.round(scrollPercentage * 100);
-        
-        if (speedNumber) {
-            speedNumber.textContent = currentSpeed;
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const currentTime = Date.now();
+        const distance = Math.abs(currentScrollTop - lastScrollTop);
+        const timeElapsed = currentTime - lastTime;
+
+        if (timeElapsed > 0) {
+            targetSpeed = Math.round((distance / timeElapsed) * 5); 
         }
+
+        lastScrollTop = currentScrollTop;
+        lastTime = currentTime;
     });
 
-    // --- Scroll Reveal (Stable Version) ---
-const reveals = document.querySelectorAll(".reveal");
+    function updateSpeedometer() {
+        displayedSpeed += (targetSpeed - displayedSpeed) * 0.1;
+        const roundedSpeed = Math.round(displayedSpeed);
+        
+        if (speedNumber) speedNumber.textContent = roundedSpeed;
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        const element = entry.target;
-
-        if (entry.isIntersecting) {
-            // 1. When it enters the screen, just activate it.
-            // It is already in the correct starting position from when it left.
-            element.classList.add("active");
-        } else {
-            // 2. When it leaves the screen, turn it off.
-            element.classList.remove("active");
-
-            // 3. Set up its NEXT starting position based on where it went.
-            // If the element's top boundary is above the viewport (meaning you scrolled past it downwards),
-            // we lock it in place (translateY: 0) so it ONLY fades when you scroll back up to it.
-            if (entry.boundingClientRect.top < 0) {
-                element.classList.add("fade-only");
-            } 
-            // If it leaves through the bottom of the screen, we remove the lock
-            // so it falls back to the default translateY(40px) and can slide up again later.
-            else {
-                element.classList.remove("fade-only");
+        if (roundedSpeed >= 80) {
+            if (speedIndicator) {
+                speedIndicator.style.backgroundColor = "white";
+                speedIndicator.style.borderColor = "#cc0000"; 
             }
+            if (speedNumber) speedNumber.style.color = "red";        
+        } else {
+            if (speedIndicator) {
+                speedIndicator.style.backgroundColor = "white";
+                speedIndicator.style.borderColor = "#cc0000";
+            }
+            if (speedNumber) speedNumber.style.color = "black";
         }
+
+        targetSpeed *= 0.95; 
+        if (targetSpeed < 0.1) targetSpeed = 0;
+
+        requestAnimationFrame(updateSpeedometer);
+
+        setTimeout(() => {
+            const loader = document.getElementById("page-loader");
+            if(loader){
+                loader.style.opacity = "0";
+                setTimeout(()=> loader.remove(),1000);
+            }
+        }, 3200);
+    }
+    
+    // Start Screen Logic
+    if (startBtn) {
+        startBtn.addEventListener("click", () => {
+            startBtn.style.display = "none";
+            if (traffic) traffic.classList.remove("hidden");
+
+            setTimeout(() => {
+                if (startScreen) startScreen.style.display = "none";
+                if (quizContainer) quizContainer.classList.remove("hidden");
+
+                prepareQuiz();
+                loadQuestion();
+
+            }, 3000);
+        });
+    }
+    
+    updateSpeedometer();
+
+    // --- Scroll Reveal (Stable Version - Preserved from CURRENT) ---
+    const reveals = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const element = entry.target;
+
+            if (entry.isIntersecting) {
+                element.classList.add("active");
+            } else {
+                element.classList.remove("active");
+
+                if (entry.boundingClientRect.top < 0) {
+                    element.classList.add("fade-only");
+                } 
+                else {
+                    element.classList.remove("fade-only");
+                }
+            }
+        });
+    }, {
+        threshold: 0.15
     });
-}, {
-    threshold: 0.15
-});
 
-reveals.forEach(section => observer.observe(section));
+    reveals.forEach(section => observer.observe(section));
 
-    // 5. Initialize
+    // 6. Initialize
     prepareQuiz();
     loadQuestion();
 });

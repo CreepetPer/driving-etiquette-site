@@ -50,25 +50,49 @@
             <h2>What is the Purpose of this Webpage?</h2>
             <p>The purpose of this webpage is to spread awareness to vehicle owners on the current state of the roads in Cebu City. It aims to encourage people to adopt a defensive driving mindset in order to keep roads safe. It also attempts to test and educate people on the proper road rules, so that more people can practice them in their daily lives.   </p>
         </section>
-        <section id="infographic-section" class="reveal">
+                <section id="infographic-section">
             <div id="infographic-wrapper" class="collapsed">
-            <img src="images/traffic-etiquette-infographic.png" alt="Infographic on Road Etiquette and Traffic Rules in Cebu City">
+            <img src="images/traffic-etiquette-infographic.png" alt="Infographic on Road Etiquette and Traffic Rules in Cebu City" class="center-image">
             <div class="gradient-overlay"></div>
             </div>
             <button id="see-more-btn" class="arrow-btn">&#9662;</button>
+            <p class="see-more-text">Click to see more</p>
         </section>
 
-        <section id="quiz-section" class="reveal">
-            <h2>Test Your Knowledge</h2>
-            <div id="quiz-container">
-                <p id="question-text">Loading question...</p>
-                    <img id="quiz-image" class="hidden" width="250" alt="Quiz image" style="display:block; margin:auto;">
-                <div id="choices-container">
+        <section id="quiz-section">
+
+            <h2 class="quiz-header">
+                Test Your Driving Knowledge
+            </h2>
+
+            <!-- Start Screen -->
+            <div id="start-screen">
+
+                <!-- Button only, no video yet -->
+                <button id="start-btn">Start Quiz</button>
+
+                <!-- Traffic light container (hidden initially) -->
+                <div id="traffic-sequence" class="hidden">
+                    <div class="traffic-light">
+                        <div class="light red"></div>
+                        <div class="light yellow"></div>
+                        <div class="light green"></div>
                     </div>
+                </div>
+
+
+            </div>
+
+            <!-- Actual Quiz (hidden at first) -->
+            <div id="quiz-container" class="hidden">
+                <p id="question-text">Loading question...</p>
+                <img id="quiz-image" class="hidden" width="250" alt="Quiz image" style="display:block; margin:auto;">
+                <div id="choices-container"></div>
                 <p id="feedback-text"></p>
                 <button id="next-btn" class="hidden">Next Question</button>
                 <button id="retry-btn" class="hidden">Try Again!</button>
-                </div>
+            </div>
+
         </section>
 
         <section id="call-to-action" class="reveal">
@@ -87,7 +111,7 @@
         </section>
 
     </main>
-
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

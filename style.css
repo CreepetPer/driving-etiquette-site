@@ -8,10 +8,14 @@
 
     --traffic-yellow: #ffcc00;
     --traffic-red: #ff3333;
+    
+    --black: #000000;
+    --ink-black: rgb(10, 20, 27);
+    
+    scroll-behavior: smooth;
 }
 
 html {
-    scroll-behavior: smooth;
     scroll-padding-top: 60px;
 }
 
@@ -80,6 +84,7 @@ nav ul li a:hover {
     font-weight: bold;
     color: black;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 #speed-number {
@@ -194,14 +199,13 @@ img {
     max-height: 5000px;
 }
 
-
 .gradient-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 100px;
-    background: linear-gradient(transparent, white);
+    background: linear-gradient(transparent, rgb(0, 0, 0));
     display: flex;
     justify-content: center; 
     align-items: flex-end;
@@ -217,6 +221,7 @@ img {
     width: 100%;           
     text-align: center;     
     background: none;
+    color: white;
     border: none;
     padding: 0; 
     font-size: 40px;
@@ -233,12 +238,10 @@ img {
     color: #007bff;
 }
 
-
 .expanded + #see-more-btn, 
 .expanded .arrow-btn {
     transform: rotate(180px);
 }
-
 
 /* driving etiquette short-form video */
 .video-btn {
@@ -349,4 +352,148 @@ img {
 /* entering from top → fade only */
 .reveal.fade-only {
     transform: translateY(0);
+}
+
+/* --- New Start Screen & Interactive Elements --- */
+
+.center-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:50%;
+}
+
+#start-screen {
+    position: relative;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--dark-navy), var(--prussian-blue)); 
+}
+
+/* Subtle animated background for tech feel */
+#start-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(0, 255, 247, 0.05) 0%, transparent 70%);
+    animation: slowRotate 30s linear infinite;
+    z-index: 0;
+}
+
+@keyframes slowRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Modern Techy Start Button */
+#start-btn {
+    padding: 18px 50px;
+    font-size: 22px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #00fff7; 
+    background: var(--ink-black);
+    border: 2px solid #00fff7;
+    border-radius: 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 247, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+/* Hover effect */
+#start-btn:hover {
+    color: var(--ink-black);
+    background: #00fff7;
+    box-shadow: 0 0 25px rgba(0, 255, 247, 0.9);
+    transform: scale(1.08);
+}
+
+/* Pressed effect */
+#start-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 12px rgba(0, 255, 247, 0.5) inset;
+}
+
+.traffic-light {
+    position: relative;
+    z-index: 1; /* always above the animated background */
+    width: 80px;
+    background: #222;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 247, 0.5);
+}
+
+.light {
+    width: 50px;
+    height: 50px;
+    margin: 10px auto;
+    border-radius: 50%;
+    background: #333;
+    box-shadow: inset 0 0 8px rgba(255,255,255,0.1);
+}
+
+.red{ animation:redLight 3s forwards; }
+.yellow{ animation:yellowLight 3s forwards; }
+.green{ animation:greenLight 3s forwards; }
+
+@keyframes redLight{
+    0%,33%{background:red;}
+    34%,100%{background:#333;}
+}
+
+@keyframes yellowLight{
+    0%,33%{background:#333;}
+    34%,66%{background:yellow;}
+    67%,100%{background:#333;}
+}
+
+@keyframes greenLight{
+    0%,66%{background:#333;}
+    67%,100%{background:lime;}
+}
+
+.quiz-header {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00fff7; /* neon-tech color */
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+/* subtle underline / accent line */
+.quiz-header::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #00fff7;
+    margin: 8px auto 0;
+    border-radius: 2px;
+    box-shadow: 0 0 10px #00fff7;
+}
+
+.see-more-text {
+    font-size: 0.8rem;       /* small text */
+    color: rgba(255, 255, 255, 0.5); /* faint, subtle */
+    text-align: center;
+    margin-top: 5px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.5px;
 }
