@@ -389,22 +389,59 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Scroll Indicator Logic
+    let lastScrollTop = 0;
+    let lastTime = Date.now();
+    let targetSpeed = 0;
+    let displayedSpeed = 0;
     const speedNumber = document.getElementById("speed-number");
+    const speedIndicator = document.getElementById("speed-indicator");
+
+    // 1. Calculate the Raw Speed on Scroll
     window.addEventListener("scroll", () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercentage = scrollTop / scrollHeight;
-        
-        // Maps the scroll percentage to a number between 0 and 100 (km/h)
-        const currentSpeed = Math.round(scrollPercentage * 100);
-        
-        if (speedNumber) {
-            speedNumber.textContent = currentSpeed;
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const currentTime = Date.now();
+        const distance = Math.abs(currentScrollTop - lastScrollTop);
+        const timeElapsed = currentTime - lastTime;
+
+        if (timeElapsed > 0) {
+            // Calculate the speed the user is actually doing right now
+            targetSpeed = Math.round((distance / timeElapsed) * 5); 
         }
+
+        lastScrollTop = currentScrollTop;
+        lastTime = currentTime;
     });
 
-    // 5. Initialize
-    prepareQuiz();
-    loadQuestion();
-});
+    // 2. The Animation Loop (Handles the "Red Alert" and Smooth Decay)
+    function updateSpeedometer() {
+        // "Lerp" math: current speed moves 10% closer to target speed every frame
+        displayedSpeed += (targetSpeed - displayedSpeed) * 0.1;
+        
+        const roundedSpeed = Math.round(displayedSpeed);
+        if (speedNumber) speedNumber.textContent = roundedSpeed;
+
+        
+        if (roundedSpeed >= 80) {
+            speedIndicator.style.backgroundColor = "white";
+            speedIndicator.style.borderColor = "#cc0000"; 
+            speedNumber.style.color = "red";         
+        } else {
+            
+            speedIndicator.style.backgroundColor = "white";
+            speedIndicator.style.borderColor = "#cc0000";
+            speedNumber.style.color = "black";
+        }
+
+        
+        targetSpeed *= 0.95; 
+        if (targetSpeed < 0.1) targetSpeed = 0;
+
+        requestAnimationFrame(updateSpeedometer);
+    }
+
+    
+    updateSpeedometer();
+        // 5. Initialize
+        prepareQuiz();
+        loadQuestion();
+    });
