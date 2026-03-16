@@ -497,3 +497,44 @@ img {
     font-family: 'Roboto', sans-serif;
     letter-spacing: 0.5px;
 }
+
+/* --- STEP 1: Alternating Section Backgrounds --- */
+
+#target-audience {
+    background-color: var(--road-gray);
+    color: var(--black);
+}
+#target-audience h2, #target-audience p {
+    color: var(--black); /* Ensures text is readable on the light gray background */
+}
+
+#purpose {
+    background-color: var(--charcoal-blue);
+    color: #ffffff;
+}
+
+#infographic-section {
+    background-color: #ffffff;
+}
+#infographic-section .see-more-text {
+    color: var(--black);
+}
+
+#quiz-section {
+    background-color: var(--asphalt);
+    color: #ffffff;
+}
+
+#call-to-action {
+    background-color: var(--traffic-yellow);
+    color: var(--black);
+    border-left: 12px solid var(--black); /* Adds the road-stripe accent from the guide */
+}
+#call-to-action h2, #call-to-action p, #call-to-action strong {
+    color: var(--black);
+}
+
+#video-link-section {
+    background-color: var(--dark-navy);
+    color: #ffffff;
+}
