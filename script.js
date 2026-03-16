@@ -462,6 +462,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (targetSpeed < 0.1) targetSpeed = 0;
 
         requestAnimationFrame(updateSpeedometer);
+
+        setTimeout(() => {
+    const loader = document.getElementById("page-loader");
+    if(loader){
+        loader.style.opacity = "0";
+        setTimeout(()=> loader.remove(),1000);
+    }
+    }, 3200);
     }
 
     
