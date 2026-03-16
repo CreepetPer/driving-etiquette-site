@@ -62,22 +62,31 @@ nav ul {
     align-items: center;
 }
 
+/* --- Animated Navbar Links (Gentle Yellow Fade) --- */
 nav ul li a {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
     margin: 0 15px;
     font-weight: bold;
+    transition: color 0.6s ease; 
 }
+
+/* Swapped from silver-gray back to your bright traffic yellow */
 nav ul li a:hover {
-    color: #C0C0C0;
-    text-decoration: none;
+    color: var(--traffic-yellow); 
 }
+
+/* --- The Purple Logo Fix --- */
 .logo a {
-    color: white;
+    color: #ffffff !important; /* The !important tag permanently blocks the browser's purple default */
     text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
 }
+
+/* Keeps the logo strictly white even if you hover over it, separating it from the normal links */
+.logo a:hover {
+    color: #ffffff !important; 
+}
+
 /* Speed Limit Scroll Indicator (Navbar Version) */
 #speed-indicator {
     width: 45px;
