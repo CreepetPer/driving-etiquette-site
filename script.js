@@ -1,3 +1,5 @@
+let lastScrollY = window.scrollY;
+
 const quizData = [
     {
         question: "Who has the right-of-way at an intersection without traffic lights?",
@@ -403,6 +405,40 @@ document.addEventListener('DOMContentLoaded', function() {
             speedNumber.textContent = currentSpeed;
         }
     });
+
+    // --- Scroll Reveal (Stable Version) ---
+const reveals = document.querySelectorAll(".reveal");
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        const element = entry.target;
+
+        if (entry.isIntersecting) {
+            // 1. When it enters the screen, just activate it.
+            // It is already in the correct starting position from when it left.
+            element.classList.add("active");
+        } else {
+            // 2. When it leaves the screen, turn it off.
+            element.classList.remove("active");
+
+            // 3. Set up its NEXT starting position based on where it went.
+            // If the element's top boundary is above the viewport (meaning you scrolled past it downwards),
+            // we lock it in place (translateY: 0) so it ONLY fades when you scroll back up to it.
+            if (entry.boundingClientRect.top < 0) {
+                element.classList.add("fade-only");
+            } 
+            // If it leaves through the bottom of the screen, we remove the lock
+            // so it falls back to the default translateY(40px) and can slide up again later.
+            else {
+                element.classList.remove("fade-only");
+            }
+        }
+    });
+}, {
+    threshold: 0.15
+});
+
+reveals.forEach(section => observer.observe(section));
 
     // 5. Initialize
     prepareQuiz();

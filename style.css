@@ -1,9 +1,13 @@
 :root {
     --dark-navy: #08081b;
-    --black: #000000ff;
-    --ink-black: rgb(10, 20, 27);
-    --prussian-blue: #1b2a41ff;
-    --charcoal-blue: #324a5fff; 
+    --prussian-blue: #1b2a41;
+    --charcoal-blue: #324a5f;
+
+    --road-gray: #f3f4f6;
+    --asphalt: #2a2a2a;
+
+    --traffic-yellow: #ffcc00;
+    --traffic-red: #ff3333;
 }
 
 html {
@@ -326,4 +330,23 @@ img {
         flex-direction: column;
         padding: 30px 20px;
     }
+}
+
+/* --- Scroll Reveal Animation --- */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    will-change: opacity, transform;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* entering from top → fade only */
+.reveal.fade-only {
+    transform: translateY(0);
 }
