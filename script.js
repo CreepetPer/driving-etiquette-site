@@ -275,6 +275,30 @@ let activeQuiz = [];
 let currentQuestionIndex = 0;
 let score = 0;
 
+function launchConfetti() {
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
+}
 document.addEventListener('DOMContentLoaded', function() {
     // 1. Select all UI elements
     const questionText = document.getElementById("question-text");
@@ -359,6 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Show final score
                 if (score >= activeQuiz.length) {
                     questionText.textContent = `Perfect Score! (${score}/${activeQuiz.length}) Drive Safe!`;
+                    launchConfetti();
                 } else {
                     questionText.textContent = `Your final score is: ${score}/${activeQuiz.length}. Wanna try again?`;
                 }
