@@ -267,13 +267,13 @@ img {
     font-weight: bold;
     border-radius: 50px; /* Gives it a modern, clickable pill shape */
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 51, 51, 0.3); /* Soft red glow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .video-btn:hover {
-    transform: scale(1.05) translateY(-2px); /* Slight lift effect */
-    background-color: #cc0000; /* Darkens slightly on hover */
-    box-shadow: 0 8px 25px rgba(255, 51, 51, 0.5); /* Glow intensifies */
+    transform: scale(1.05) translateY(-2px); /* Keeps the lift effect */
+    background-color: #cc0000; /* Keeps the color darkening */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Changes the neon red to a standard dark shadow */
     color: #ffffff;
 }
 
@@ -531,6 +531,9 @@ img {
 #infographic-section {
     background-color: #ffffff;
 }
+#infographic-section h2 {
+    font-size: 32px;
+}
 #infographic-section .see-more-text {
     color: var(--black);
 }
@@ -610,4 +613,73 @@ img {
 #call-to-action p {
     max-width: 800px;
     margin: 0 auto; 
+}
+
+/* --- STEP 8: Gamified Dashboard Card (Overrides old neon styles) --- */
+#start-screen, #quiz-container {
+    max-width: 700px;
+    margin: 0 auto;
+    height: auto;
+    min-height: 250px;
+    background: #ffffff; /* Creates the crisp white card */
+    color: var(--black);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Strong drop shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#start-screen::before {
+    display: none; /* Kills the spinning neon background animation */
+}
+
+/* Clean, minimalist Start Button */
+#start-btn {
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: var(--prussian-blue);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-transform: none;
+    letter-spacing: normal;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#start-btn:hover {
+    background-color: var(--charcoal-blue);
+    transform: scale(1.05);
+    color: #ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Minimalist Quiz Header */
+.quiz-header {
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    color: #ffffff; /* White to contrast with the asphalt background */
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.quiz-header::after {
+    display: none; /* Removes the glowing neon underline */
+}
+
+/* Ensure the choices take full width inside the new card */
+#choices-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+#question-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
