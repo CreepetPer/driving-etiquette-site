@@ -111,7 +111,9 @@ header {
 
 /* Container limits width for better reading on desktop */
 main {
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 section {
@@ -595,4 +597,17 @@ img {
     .split-section.reverse {
         flex-direction: column;
     }
+}
+
+/* --- STEP 4: Full-Width Bottom Sections --- */
+#quiz-section, #call-to-action, #video-link-section {
+    width: 100%;
+    padding: 60px 20px; /* Adds nice vertical breathing room */
+    text-align: center; /* Keeps the text from scattering */
+}
+
+/* Ensure the CTA text doesn't stretch too wide and become hard to read */
+#call-to-action p {
+    max-width: 800px;
+    margin: 0 auto; 
 }
