@@ -940,14 +940,15 @@ body::after {
     100% { transform: scale(1.5); opacity: 0; }
 }
 #video-section {
-    text-align: center;
+    display: flex;
+    justify-content: center;
     padding: 60px 20px;
 }
 
 .video-container {
     max-width: 900px;
-    margin: 30px auto;
-    aspect-ratio: 16 / 9;
+    width: 100%;
+    aspect-ratio: 16/9;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
