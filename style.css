@@ -940,13 +940,13 @@ body::after {
     100% { transform: scale(1.5); opacity: 0; }
 }
 #video-section {
-    display: flex;
-    justify-content: center;
+    text-align: center;
     padding: 60px 20px;
 }
 
 .video-container {
     max-width: 900px;
+    margin: 30px auto;
     width: 100%;
     aspect-ratio: 16/9;
     border-radius: 12px;
