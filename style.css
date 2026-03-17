@@ -959,3 +959,149 @@ body::after {
     height: 100%;
     border: none;
 }
+
+/* --- HERO SECTION --- */
+
+.hero {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    animation: zoomHero 10s ease-in-out infinite alternate;
+
+    background: url('images/cebu-night-traffic.jpg') center/cover no-repeat;
+}
+
+/* DARK GRADIENT (NOT FLAT OVERLAY) */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(8, 8, 27, 0.6),
+        rgba(8, 8, 27, 0.85)
+    );
+}
+
+/* CONTENT */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero h1 {
+    font-size: 52px;
+    line-height: 1.1;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 25px;
+}
+
+/* CTA BUTTON */
+.hero-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+/* PRIMARY (blue theme) */
+.hero-btn-primary {
+    background: var(--prussian-blue);
+    color: #ffffff;
+    border: 2px solid var(--prussian-blue);
+    transition: all 0.25s ease;
+}
+
+.hero-btn-primary:hover {
+    background: #ffffff;
+    color: var(--prussian-blue);
+    border-color: var(--prussian-blue); /* keeps border consistent */
+    transform: translateY(-2px);
+}
+
+/* SECONDARY (video button - more attention) */
+/* WATCH VIDEO (underline animation) */
+.hero-btn-secondary {
+    background: var(--prussian-blue);
+    color: #ffffff;
+    border: 2px solid var(--prussian-blue);
+    position: relative;
+    overflow: hidden;
+}
+
+/* subtle glow + lift */
+.hero-btn-secondary span {
+    position: relative;
+}
+
+/* underline element */
+.hero-btn-secondary span::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+
+    width: 0%;
+    height: 2px;
+    background: #ffffff;
+
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.hero-btn-secondary:hover span::after {
+    width: 100%;
+}
+
+.hero-btn-secondary:hover {
+    transform: translateY(-2px);
+}
+
+.hero-btn-secondary:hover::after {
+    width: 100%;
+}
+
+/* animate underline */
+.hero-btn-secondary:hover::after {
+    width: 100%;
+}
+
+.hero::after {
+    content: "↓";
+    position: absolute;
+    bottom: 20px;
+    font-size: 24px;
+    opacity: 0.6;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+@keyframes zoomHero {
+    from { background-size: 100%; }
+    to { background-size: 110%; }
+}
